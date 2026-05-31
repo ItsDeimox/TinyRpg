@@ -27,6 +27,11 @@
         OnValueChanged?.Invoke(amount);
     }
 
+    public int GetValue()
+    {
+        return _value;
+    }
+
     public void SubValue(int amount)
     {
         _value -= amount;

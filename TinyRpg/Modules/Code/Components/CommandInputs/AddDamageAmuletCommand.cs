@@ -3,7 +3,7 @@
     public override void OnCommand(string[]? args = null)
     {
         base.OnCommand(args);
-
+        
         var damageAmulet = new DamageAmulet();
 
         AddComponent(damageAmulet);

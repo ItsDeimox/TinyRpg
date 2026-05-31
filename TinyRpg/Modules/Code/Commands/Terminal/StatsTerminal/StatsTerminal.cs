@@ -1,5 +1,15 @@
 ﻿internal class StatsTerminal
 {
+    public static void ShowStatsHeader()
+    {
+        Console.WriteLine("\n/===|| Player Stats ||===\\");
+    }
+
+    public static void ShowStatsFooter()
+    {
+        Console.WriteLine("\n\\========================/\n");
+    }
+
     public static void ShowLevelStat(LevelComponent levelStat)
     {
         Console.WriteLine($"\n [ Level ] {levelStat.GetLevel()}");
