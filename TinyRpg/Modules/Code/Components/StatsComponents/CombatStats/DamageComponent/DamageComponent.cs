@@ -1,0 +1,1 @@
+﻿internal class DamageComponent(int initDamage = 1) : BasicStatComponent("Damage", initDamage);
