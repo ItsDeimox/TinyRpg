@@ -8,6 +8,8 @@
 
         AddComponent(damageAmulet);
 
+        Console.WriteLine("\nYou have added a damage amulet to your character!");
+
         damageAmulet.Equip();
     }
 }
