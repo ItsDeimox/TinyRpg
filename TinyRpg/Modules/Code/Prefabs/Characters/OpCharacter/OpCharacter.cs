@@ -2,7 +2,7 @@
 {
     public OpCharacter()
     {
-        AddComponent(new LevelComponent(100));
+        AddComponent(new LevelComponent());
         AddComponent(new HealthComponent(99999));
         AddComponent(new DamageComponent(99999));
         AddComponent(new ArmorComponent(200));

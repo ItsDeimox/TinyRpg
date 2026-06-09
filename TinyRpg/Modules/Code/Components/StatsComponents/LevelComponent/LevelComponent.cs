@@ -3,13 +3,16 @@
     public event Action<int>? OnLevelUp;
     public event Action<int>? OnXpAdded;
 
-    private int _level;
-    private int _xp;
-    private int _maxXp;
+    [SerializeField("level")]
+    private int _level = 1;
 
-    public LevelComponent(int level = 1)
+    [SerializeField("xp")]
+    private int _xp = 0;
+
+    private int _maxXp { get; set; }
+
+    public LevelComponent()
     {
-        _level = level;
         UpdateMaxXp();
     }
 

@@ -6,9 +6,8 @@
 
         string? command = Console.ReadLine();
 
-        if (command == null)
-        {
-            Console.WriteLine("\nYou should write something!");
+        if (!CommandHandler.ValidateCommand(command)) {
+            Console.WriteLine("\n[X] Invalid command. Say \"help\" to show avaliable commands.");
 
             StartLoop();
 

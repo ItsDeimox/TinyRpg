@@ -42,8 +42,6 @@
         _children.Add(gameObject);
 
         gameObject.SetParent(this);
-        
-        _scene?.AddGameObject(gameObject);
 
         OnGameObjectAdded?.Invoke(gameObject);
     }
@@ -94,8 +92,7 @@
     public List<IGameObject> GetDescendants()
     {
         return _children
-            .SelectMany(c => c
-            .GetDescendants())
+            .SelectMany(c => c.GetDescendants())
             .Concat(_children)
             .ToList();
     }
@@ -122,10 +119,6 @@
 
     public T? GetComponentInChildren<T>()
     {
-        T? component = GetComponent<T>();
-
-        if (component != null) return component;
-
         return GetChildren()
             .SelectMany(c => c.GetComponents<T>())
             .FirstOrDefault();

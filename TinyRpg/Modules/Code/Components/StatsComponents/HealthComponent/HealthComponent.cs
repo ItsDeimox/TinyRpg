@@ -4,7 +4,10 @@
     public event Action<int>? OnAddHealth;
     public event Action<int>? OnSubHealth;
 
+    [SerializeField("max_health")]
     private int _maxHealth;
+
+    [SerializeField("health")]
     private int _health;
 
     public HealthComponent(int maxHealth = 100)

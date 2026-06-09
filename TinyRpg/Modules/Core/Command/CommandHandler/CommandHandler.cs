@@ -1,5 +1,13 @@
 ﻿internal static class CommandHandler
 {
+    public static bool ValidateCommand(string? command)
+    {
+        return
+            command != null
+            && command != ""
+            && CommandManager.HaveCommand(command);
+    }
+
     public static CommandInput GetCommandInput(string command)
     {
         string commandName = GetCommandName(command);
