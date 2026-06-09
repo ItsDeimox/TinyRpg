@@ -10,18 +10,6 @@
         _items = initItems ?? new();
     }
 
-    public override void OnCommandInput(CommandInput commandInput)
-    {
-        base.OnCommandInput(commandInput);
-
-        if (commandInput.Name == "inv")
-        {
-            Console.WriteLine("--[ INVENTORY ]--");
-
-            
-        }
-    }
-
     public T? GetItem<T>(string itemName)
     {
         foreach (var item in _items)

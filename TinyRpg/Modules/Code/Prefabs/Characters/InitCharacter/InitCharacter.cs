@@ -1,11 +1,20 @@
 ﻿internal class InitCharacter : GameObject
 {
-    public InitCharacter() : base("Init Character")
+    public InitCharacter() : base("Player")
     {
-        AddComponent(new CharacterAutoUpgrader());
+        AddComponent(new NameChanger());
+        AddComponent(new NameChangerCommandInputComponent());
+
         AddComponent(new StarterInventory());
-        AddComponent(new StatsCommandInputComponent());
         AddComponent(new AddDamageAmuletCommand());
+        AddComponent(new CharacterAutoUpgrader());
+        //AddComponent(new BossAutoUpgrader());
+        //AddComponent(new BosfyComponent());
+        AddComponent(new BossfyCommandInput());
+
+        AddComponent(new AddXpInputCommand());
+        AddComponent(new StatsCommandInputComponent());
+        AddComponent(new InventoryCommandInput());
 
         AddGameObject(new StatsObject());
     }

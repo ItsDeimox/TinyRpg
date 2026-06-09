@@ -38,6 +38,11 @@
         return default;
     }
 
+    public static string GetCommandName(string command)
+    {
+        return command.Split(' ')[0];
+    }
+
     public static List<CommandInputComponent> GetAvaliableCommands()
     {
         return _avaliableCommands;

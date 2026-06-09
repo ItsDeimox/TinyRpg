@@ -6,7 +6,7 @@
     {
         base.OnStart();
 
-        LevelComponent? levelComponent = GetComponent<LevelComponent>();
+        LevelComponent? levelComponent = GetComponentInChildren<LevelComponent>();
         levelComponent?.OnLevelUp += OnLevelUp;
     }
 
@@ -14,9 +14,9 @@
     {
         OnUpgrade?.Invoke();
 
-        DamageComponent? damageComponent = GetComponent<DamageComponent>();
-        ArmorComponent? armorComponent = GetComponent<ArmorComponent>();
-        HealthComponent? healthComponent = GetComponent<HealthComponent>();
+        DamageComponent? damageComponent = GetComponentInChildren<DamageComponent>();
+        ArmorComponent? armorComponent = GetComponentInChildren<ArmorComponent>();
+        HealthComponent? healthComponent = GetComponentInChildren<HealthComponent>();
 
         damageComponent?.AddValue(1);
         armorComponent?.AddValue(1);

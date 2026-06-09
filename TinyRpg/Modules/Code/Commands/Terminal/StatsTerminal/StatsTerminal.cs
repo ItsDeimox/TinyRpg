@@ -18,7 +18,7 @@
 
     public static void ShowHealthStat(HealthComponent healthStat)
     {
-        Console.WriteLine($" [ Health ] {healthStat.GetHealth()}/{healthStat.GetMaxHealth()}");
+        Console.WriteLine($"\n [ Health ] {healthStat.GetHealth()}/{healthStat.GetMaxHealth()}");
     }
 
     public static void ShowCombatStats(GameObject character)
@@ -35,10 +35,11 @@
         HealthComponent? healthComponent = character.GetComponentInChildren<HealthComponent>();
         LevelComponent? levelComponent = character.GetComponentInChildren<LevelComponent>();
         
-        RpgTerminalPresets.ShowHeader("PlayerStats");
+        TerminalDecorator.ShowHeader("PlayerStats");
+        Console.WriteLine($" [ Name ] {character.Name}");
         if (healthComponent != null) ShowHealthStat(healthComponent);
         if (levelComponent != null) ShowLevelStat(levelComponent);
         ShowCombatStats(character);
-        RpgTerminalPresets.ShowFooter(21);
+        TerminalDecorator.ShowFooter(21);
     }
 }

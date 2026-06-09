@@ -1,4 +1,4 @@
-﻿internal static class RpgTerminalPresets
+﻿internal static class TerminalDecorator
 {
     public static void ShowHeader(string title)
     {

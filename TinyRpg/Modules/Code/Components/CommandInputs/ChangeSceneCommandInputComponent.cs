@@ -38,14 +38,14 @@
 
     private void ShowAvaliableScenes()
     {
-        RpgTerminalPresets.ShowHeader("CHOOSE A SCENE");
+        TerminalDecorator.ShowHeader("CHOOSE A SCENE");
 
         foreach (var sceneName in _avaliableScenes.Keys)
         {
             Console.WriteLine($"[ {sceneName} ]");
         }
 
-        RpgTerminalPresets.ShowFooter(24);
+        TerminalDecorator.ShowFooter(24);
     }
 
     private Scene? GetScene(string sceneName)

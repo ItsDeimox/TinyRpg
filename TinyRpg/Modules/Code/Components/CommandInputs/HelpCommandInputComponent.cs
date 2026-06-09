@@ -6,9 +6,9 @@
 
         List<CommandInputComponent> commandInputComponents = CommandManager.GetAvaliableCommands();
 
-        RpgTerminalPresets.ShowHeader("AVALIABLE COMMANDS");
+        TerminalDecorator.ShowHeader("AVALIABLE COMMANDS");
         commandInputComponents.ForEach(ShowCommandInput);
-        RpgTerminalPresets.ShowFooter(28);
+        TerminalDecorator.ShowFooter(28);
     }
 
     private void ShowCommandInput(CommandInputComponent commandInputComponent)

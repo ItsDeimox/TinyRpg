@@ -15,7 +15,7 @@
             return;
         }
 
-        if (!CommandManager.HaveCommand(command))
+        if (!CommandManager.HaveCommand(CommandManager.GetCommandName(command)))
         {
             Console.WriteLine($"\nUnknow command \"{command}\" ");
 

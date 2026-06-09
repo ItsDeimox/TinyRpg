@@ -8,8 +8,9 @@
 
         AddComponent(damageAmulet);
 
-        Console.WriteLine("\nYou have added a damage amulet to your character!");
-
         damageAmulet.Equip();
+
+        Console.WriteLine("\nYou have equipped a damage amulet to your character!");
+        Console.WriteLine("Your damage has been increased by 10 points.");
     }
 }

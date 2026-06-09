@@ -44,10 +44,14 @@
 
     private void TryLevelUp()
     {
-        if (_xp < _maxXp) return;
-
+        if (!CanLevelUp()) return;
         LevelUp();
         TryLevelUp();
+    }
+
+    private bool CanLevelUp()
+    {
+        return _xp >= _maxXp;
     }
 
     private void LevelUp()
