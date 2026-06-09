@@ -6,6 +6,7 @@
         AddComponent(new StarterInventory());
         AddComponent(new StatsCommandInputComponent());
         AddComponent(new AddDamageAmuletCommand());
+        AddComponent(new HealthComponent());
 
         AddGameObject(new StatsObject());
     }

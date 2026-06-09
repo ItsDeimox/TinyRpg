@@ -3,6 +3,13 @@
     public MainScene()
     {
         AddGameObject(new RpgGameObject());
-        AddGameObject(new InitCharacter());
+
+        GameObject player = new InitCharacter();
+
+        AddGameObject(player);
+
+        object? serializedPlayer = GameObjectSerializer.Serialize(player);
+
+        Console.WriteLine($"Serialized Player: {serializedPlayer}");
     }
 }
