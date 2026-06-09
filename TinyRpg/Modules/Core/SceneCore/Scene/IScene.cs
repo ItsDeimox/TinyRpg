@@ -15,4 +15,8 @@
     bool HasGameObject(IGameObject gameObject);
 
     IGameObject? GetGameObject(string name);
+
+    List<IGameObject> GetChildren();
+
+    List<IGameObject> GetDescendants();
 }

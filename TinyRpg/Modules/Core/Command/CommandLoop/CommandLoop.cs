@@ -6,25 +6,15 @@
 
         string? command = Console.ReadLine();
 
-        if (command == null)
-        {
-            Console.WriteLine("\nYou should write something!");
+        if (!CommandHandler.ValidateCommand(command)) {
+            Console.WriteLine("\n[X] Invalid command. Say \"help\" to show avaliable commands.");
 
             StartLoop();
 
             return;
         }
 
-        if (!CommandManager.HaveCommand(command))
-        {
-            Console.WriteLine($"\nUnknow command \"{command}\" ");
-
-            StartLoop();
-
-            return;
-        }
-
-        Engine.RunCommand(command);
+        Engine.RunCommand(command!);
 
         StartLoop();
     }
