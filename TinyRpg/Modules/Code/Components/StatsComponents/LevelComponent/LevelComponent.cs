@@ -1,4 +1,5 @@
-﻿internal class LevelComponent : Component, ILevelComponent
+﻿[Serializable]
+internal class LevelComponent : Component, ILevelComponent
 {
     public event Action<int>? OnLevelUp;
     public event Action<int>? OnXpAdded;

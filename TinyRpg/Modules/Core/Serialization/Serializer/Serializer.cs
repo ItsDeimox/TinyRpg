@@ -28,7 +28,7 @@ internal static class Serializer
 
             SerializableField serializableField = new(serializeField.Id, fieldValue, fieldType);
 
-            serializableObject.Fields.Add(serializeField.Id, serializableField);
+            serializableObject.Fields.Add(serializableField);
         }
 
         return serializableObject;
@@ -37,10 +37,7 @@ internal static class Serializer
     public static string Serialize(object obj)
     {
         SerializableObject serializableObject = GetSerializableObject(obj);
-
-        string json = JsonSerializer.Serialize(serializableObject);
-
-        return json;
+        return JsonSerializer.Serialize(serializableObject);
     }
 
     public static T? Deserialize<T>(string json)
@@ -52,7 +49,7 @@ internal static class Serializer
         if (type == null) return default;
 
         object? instance = Activator.CreateInstance(type);
-        if (instance == null) return default;
+        if (instance is not T validInstance) return default;
 
         FieldInfo[] fields = type.GetFields(
             BindingFlags.Instance |
@@ -65,23 +62,21 @@ internal static class Serializer
             var serializeField = field.GetCustomAttribute<SerializeFieldAttribute>();
             if (serializeField == null) continue;
 
-            if (!serializableObject.Fields.TryGetValue(
-                serializeField.Id,
-                out var serializableField
-            )) continue;
+            SerializableField? serializableField = 
+                serializableObject
+                .Fields
+                .FirstOrDefault(sf => sf.Id == serializeField.Id);
+            if (serializableField == null) continue;
+            if (serializableField.Value is not JsonElement element) continue;
 
             Type? targetType = Type.GetType(serializableField.Type);
             if (targetType == null) continue;
 
-            if (serializableField.Value is not JsonElement element) continue;
-
-            object? value = JsonSerializer.Deserialize(element.GetRawText(),targetType);
+            object? value = JsonSerializer.Deserialize(element.GetRawText(), targetType);
             if (value == null) continue;
 
             field.SetValue(instance, value);
         }
-
-        if (instance is not T validInstance) return default;
 
         return validInstance;
     }

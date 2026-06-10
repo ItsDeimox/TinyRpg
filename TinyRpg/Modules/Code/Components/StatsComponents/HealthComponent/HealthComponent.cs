@@ -5,10 +5,10 @@ internal class HealthComponent : Component, IHealthComponent
     public event Action<int>? OnAddHealth;
     public event Action<int>? OnSubHealth;
 
-    [SerializeField("max_health")]
+    [SerializeField("MaxHealth")]
     private int _maxHealth;
 
-    [SerializeField("health")]
+    [SerializeField("Health")]
     private int _health;
 
     public HealthComponent(int maxHealth = 100)
