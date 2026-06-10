@@ -10,7 +10,7 @@
     {
         OnSceneStart?.Invoke();
 
-        foreach (var gameObject in _children)
+        foreach (var gameObject in GetDescendants())
         {
             ComponentManager.StartComponents(gameObject.GetComponentList());
             gameObject.OnComponentAdded += (IComponent component) => component.OnStart();
@@ -60,6 +60,9 @@
 
     public List<IGameObject> GetDescendants()
     {
-        return _children.SelectMany(go => go.GetDescendants()).ToList();
+        return _children
+            .SelectMany(go => go.GetDescendants())
+            .Concat(_children)
+            .ToList();
     }
 }

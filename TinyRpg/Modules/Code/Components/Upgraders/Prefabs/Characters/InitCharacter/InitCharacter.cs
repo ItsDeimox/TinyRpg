@@ -7,15 +7,14 @@
 
         AddComponent(new StarterInventory());
         AddComponent(new AddDamageAmuletCommand());
-        AddComponent(new CharacterAutoUpgrader());
-        //AddComponent(new BossAutoUpgrader());
+        //AddComponent(new CharacterAutoUpgrader());
+        AddComponent(new BossAutoUpgrader());
         //AddComponent(new BosfyComponent());
         AddComponent(new BossfyCommandInput());
 
         AddComponent(new AddXpInputCommand());
         AddComponent(new StatsCommandInputComponent());
         AddComponent(new InventoryCommandInput());
-        AddComponent(new HealthComponent());
         AddComponent(new BundaCommandInputComponent());
 
         AddGameObject(new StatsObject());

@@ -2,7 +2,7 @@
 {
     public override void OnStart()
     {
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine("//============================\\\\");
         Console.WriteLine("||                            ||");
         Console.WriteLine("||  ! WELLCOME TO TINY RPG !  ||");

@@ -21,6 +21,7 @@
         damageComponent?.AddValue(1);
         armorComponent?.AddValue(1);
         healthComponent?.AddMaxHealth(2);
+        healthComponent?.Add(2);
     }
 
     private void OnLevelUp(int level)

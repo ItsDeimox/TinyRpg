@@ -17,13 +17,6 @@ internal class HealthComponent : Component, IHealthComponent
         _health = maxHealth;
     }
 
-    public override void OnStart()
-    {
-        base.OnStart();
-
-        Console.WriteLine("\nOn Start Health\n");
-    }
-
     public int GetHealth()
     {
         return _health;
