@@ -4,7 +4,7 @@
     {
         AddGameObject(new RpgGameObject());
 
-        GameObject player = new InitCharacter();
+        InitCharacter player = new();
 
         AddGameObject(player);
 

@@ -12,7 +12,7 @@ internal static class GameObjectSerializer
 
         foreach (IComponent component in components)
         {
-            if (!AttributeManager.HaveAttributeField<SerializeFieldAttribute>(component)) continue;
+            if (!AttributeManager.HaveAttribute<SerializableAttribute>(component)) continue;
 
             string serializedComponent = Serializer.Serialize(component);
             serizaliedComponents.Add(serializedComponent);

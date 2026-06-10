@@ -15,6 +15,8 @@
         AddComponent(new AddXpInputCommand());
         AddComponent(new StatsCommandInputComponent());
         AddComponent(new InventoryCommandInput());
+        AddComponent(new HealthComponent());
+        AddComponent(new BundaCommandInputComponent());
 
         AddGameObject(new StatsObject());
     }

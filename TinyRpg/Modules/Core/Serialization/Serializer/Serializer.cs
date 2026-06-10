@@ -3,7 +3,7 @@ using System.Text.Json;
 
 internal static class Serializer
 {
-    public static string Serialize(object obj)
+    public static SerializableObject GetSerializableObject(object obj)
     {
         Type componentType = obj.GetType();
 
@@ -30,6 +30,13 @@ internal static class Serializer
 
             serializableObject.Fields.Add(serializeField.Id, serializableField);
         }
+
+        return serializableObject;
+    }
+
+    public static string Serialize(object obj)
+    {
+        SerializableObject serializableObject = GetSerializableObject(obj);
 
         string json = JsonSerializer.Serialize(serializableObject);
 

@@ -1,4 +1,5 @@
-﻿internal class HealthComponent : Component, IHealthComponent
+﻿[Serializable]
+internal class HealthComponent : Component, IHealthComponent
 {
     public event Action<int, int>? OnHealthChanged;
     public event Action<int>? OnAddHealth;
