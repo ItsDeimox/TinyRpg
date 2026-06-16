@@ -14,7 +14,7 @@
             return;
         }
 
-        if (!CommandManager.HaveCommand(CommandManager.GetCommandName(command)))
+        if (!CommandManager.HaveCommand(CommandManager.GetCommandName(command!)))
         {
             Console.WriteLine($"\nUnknow command \"{command}\" ");
 
@@ -23,7 +23,7 @@
             return;
         }
 
-        Engine.RunCommand(command);
+        Engine.RunCommand(command!);
 
         StartLoop();
     }

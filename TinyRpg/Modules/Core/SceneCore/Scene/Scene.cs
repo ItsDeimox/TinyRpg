@@ -34,6 +34,14 @@
         OnGameObjectAdded?.Invoke(gameObject);
     }
 
+    public void AddGameObjects(List<IGameObject> gameObjects)
+    {
+        foreach (var gameObject in gameObjects)
+        {
+            AddGameObject(gameObject);
+        }
+    }
+
     public void RemoveGameObject(IGameObject gameObject)
     {
         _children.Remove(gameObject);

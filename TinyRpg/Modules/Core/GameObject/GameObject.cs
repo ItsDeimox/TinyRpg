@@ -12,6 +12,8 @@
 
     private Scene? _scene { get; set; } = new();
 
+    protected GameObject() : this("GameObject") { }
+
     public GameObject(string name = "GameObject", IGameObject? parent = null)
     {
         Name = name;
@@ -48,12 +50,7 @@
 
     public T? GetComponent<T>()
     {
-        foreach (var component in _components)
-        {
-            if (component is T) return (T) component;
-        }
-
-        return default;
+        return _components.OfType<T>().FirstOrDefault();
     }
 
     public void RemoveComponent<T>()

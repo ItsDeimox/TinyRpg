@@ -2,6 +2,8 @@
 {
     public GameObject? GameObject { get; private set; }
 
+    protected Component() { }
+
     public virtual void OnStart() { }
 
     public virtual void OnCommandInput(CommandInput commandInput) { }

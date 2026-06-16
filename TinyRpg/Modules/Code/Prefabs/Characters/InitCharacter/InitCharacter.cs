@@ -9,8 +9,8 @@
         AddComponent(new StarterInventory());
         //AddComponent(new CharacterAutoUpgrader());
         AddComponent(new BossAutoUpgrader());
-        AddComponent(new BossfyCommandInput());
 
+        AddComponent(new BossfyCommandInput());
         AddComponent(new AddDamageAmuletCommand());
         AddComponent(new AddXpInputCommand());
         AddComponent(new StatsCommandInputComponent());

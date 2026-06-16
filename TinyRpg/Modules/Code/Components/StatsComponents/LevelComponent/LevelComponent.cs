@@ -4,10 +4,8 @@ internal class LevelComponent : Component, ILevelComponent
     public event Action<int>? OnLevelUp;
     public event Action<int>? OnXpAdded;
 
-    [SerializeField("level")]
     private int _level = 1;
 
-    [SerializeField("xp")]
     private int _xp = 0;
 
     private int _maxXp { get; set; }

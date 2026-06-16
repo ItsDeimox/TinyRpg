@@ -1,4 +1,4 @@
-﻿internal interface IStorageSystem
+﻿internal interface ISaveble
 {
     bool Save();
 

@@ -1,15 +1,14 @@
-﻿[Serializable]
-internal class HealthComponent : Component, IHealthComponent
+﻿internal class HealthComponent : Component, IHealthComponent
 {
     public event Action<int, int>? OnHealthChanged;
     public event Action<int>? OnAddHealth;
     public event Action<int>? OnSubHealth;
 
-    [SerializeField("MaxHealth")]
     private int _maxHealth;
 
-    [SerializeField("Health")]
     private int _health;
+
+    public HealthComponent() : this(100) { }
 
     public HealthComponent(int maxHealth = 100)
     {
