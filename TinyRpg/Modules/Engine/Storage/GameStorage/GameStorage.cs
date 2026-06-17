@@ -24,7 +24,12 @@ internal class GameStorage
             GameStorageResource? gameStorageResource = JsonSerializer
                 .Deserialize<GameStorageResource>(json);
 
-            if (gameStorageResource is null) return false;
+            if (
+                gameStorageResource is null || 
+                gameStorageResource
+                .SaveSlotResources
+                .Count == 0
+            ) return false;
 
             _gameStorageResource = gameStorageResource;
 
