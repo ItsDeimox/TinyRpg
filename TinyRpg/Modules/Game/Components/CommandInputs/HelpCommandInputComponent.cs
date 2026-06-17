@@ -7,12 +7,17 @@
         List<CommandInputComponent> commandInputComponents = CommandManager.GetAvaliableCommands();
 
         TerminalDecorator.ShowHeader("AVALIABLE COMMANDS");
-        commandInputComponents.ForEach(ShowCommandInput);
+
+        commandInputComponents
+            .OrderBy(x => x.Name)
+            .ToList()
+            .ForEach(ShowCommandInput);
+
         TerminalDecorator.ShowFooter(28);
     }
 
     private void ShowCommandInput(CommandInputComponent commandInputComponent)
     {
-        Console.WriteLine($" [ {commandInputComponent.Name} ] {commandInputComponent.Description}\n");
+        Console.WriteLine($" ├─[ {commandInputComponent.Name} ]─> {commandInputComponent.Description}");
     }
 }

@@ -12,13 +12,13 @@
             return;
         }
 
-        Console.WriteLine("\nLoading...");
+        PromptAnimations.GradualText("\nLoading...");
 
         bool loaded = gameSaveSystemComponent.Load();
 
         if (loaded)
         {
-            Console.WriteLine("\nGame loaded successfully!\n");
+            PromptAnimations.GradualText("\nGame loaded successfully!\n");
         }
         else
         {

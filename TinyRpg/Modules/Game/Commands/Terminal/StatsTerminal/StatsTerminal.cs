@@ -35,7 +35,7 @@
         HealthComponent? healthComponent = character.GetComponentInChildren<HealthComponent>();
         LevelComponent? levelComponent = character.GetComponentInChildren<LevelComponent>();
         
-        TerminalDecorator.ShowHeader("PlayerStats");
+        TerminalDecorator.ShowHeader("PLAYER STATS");
         Console.WriteLine($" [ Name ] {character.Name}");
         if (healthComponent != null) ShowHealthStat(healthComponent);
         if (levelComponent != null) ShowLevelStat(levelComponent);

@@ -12,7 +12,7 @@
             return;
         }
 
-        Console.WriteLine("\nSaving...");
+        PromptAnimations.GradualText("\nSaving...");
 
         bool saved = gameSaveSystemComponent.Save();
 
@@ -22,6 +22,6 @@
             return;
         }
 
-        Console.WriteLine("\nGame saved successfully!");
+        PromptAnimations.GradualText("\nGame saved successfully!");
     }
 }

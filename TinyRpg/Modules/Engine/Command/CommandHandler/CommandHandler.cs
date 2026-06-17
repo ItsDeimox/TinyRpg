@@ -5,7 +5,7 @@
         return
             command != null
             && command != ""
-            && CommandManager.HaveCommand(command);
+            && CommandManager.HaveCommand(GetCommandName(command));
     }
 
     public static CommandInput GetCommandInput(string command)
