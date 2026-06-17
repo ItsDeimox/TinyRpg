@@ -13,6 +13,6 @@
 
     private void ShowCommandInput(CommandInputComponent commandInputComponent)
     {
-        Console.WriteLine($" [ {commandInputComponent.Name} ] {commandInputComponent.Description}");
+        Console.WriteLine($" [ {commandInputComponent.Name} ] {commandInputComponent.Description}\n");
     }
 }

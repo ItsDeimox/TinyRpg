@@ -1,4 +1,4 @@
-﻿internal class GameSaveSystemComponent
+﻿internal class GameSaveSystemComponent : Component
 {
     public static event Action? OnSave;
     public static event Action? OnLoad;

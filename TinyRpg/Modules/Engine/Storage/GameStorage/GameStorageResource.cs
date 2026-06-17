@@ -1,4 +1,4 @@
 ﻿internal class GameStorageResource : Resource
 {
-    public List<SaveSlotResource> SaveSlotResources = new();
+    public List<SaveSlotResource> SaveSlotResources { get; set; } = new();
 }

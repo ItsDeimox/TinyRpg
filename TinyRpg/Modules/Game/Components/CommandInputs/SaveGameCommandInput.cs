@@ -1,21 +1,27 @@
 ﻿internal class SaveGameCommandInput() : CommandInputComponent("save", "Save the game")
 {
-    private GameSaveSystemComponent _gameSaveSystemComponent = new();
-
     public override void OnCommand(string[]? args = null)
     {
         base.OnCommand(args);
 
-        Console.WriteLine("\nSaving...");
+        GameSaveSystemComponent? gameSaveSystemComponent = GetComponent<GameSaveSystemComponent>();
 
-        bool saved = _gameSaveSystemComponent.Save();
-
-        if (saved)
+        if (gameSaveSystemComponent is null)
         {
-            Console.WriteLine("\nGame saved successfully!");
+            Console.WriteLine("Can't find GameSaveSystemComponent!");
             return;
         }
 
-        Console.WriteLine("\n There was a problem while trying to save the game!");
+        Console.WriteLine("\nSaving...");
+
+        bool saved = gameSaveSystemComponent.Save();
+
+        if (!saved)
+        {
+            Console.WriteLine("\n There was a problem while trying to save the game!");
+            return;
+        }
+
+        Console.WriteLine("\nGame saved successfully!");
     }
 }

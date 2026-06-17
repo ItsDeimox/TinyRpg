@@ -3,7 +3,6 @@
 internal class GameStorage
 {
     private GameStorageResource _gameStorageResource = new();
-    private SaveSlotResource _currentSaveSlot = new();
     private int _currentSaveSlotIndex = 0;
     private string _gameDataPath;
 
@@ -11,6 +10,7 @@ internal class GameStorage
     {
         _gameDataPath = gameDataPath;
         AddEmptySlots(saveSlots);
+        SelectSlot(0);
     }
 
     public bool Load()
@@ -18,9 +18,9 @@ internal class GameStorage
         try
         {
             if (!File.Exists(_gameDataPath)) return false;
-
+            
             string json = File.ReadAllText(_gameDataPath);
-
+            
             GameStorageResource? gameStorageResource = JsonSerializer
                 .Deserialize<GameStorageResource>(json);
 
@@ -40,8 +40,11 @@ internal class GameStorage
     {
         try
         {
-            string json = JsonSerializer.Serialize(_gameStorageResource);
-
+            string json = JsonSerializer.Serialize(
+                _gameStorageResource,
+                JsonConfig.GetJsonSerializerOptions()
+            );
+            
             File.WriteAllText(_gameDataPath, json);
 
             return true;
@@ -54,8 +57,11 @@ internal class GameStorage
 
     public void Store(string path, Resource resource)
     {
+        SaveSlotResource? currentSaveSlot = GetCurrentSaveSlot();
+        if (currentSaveSlot is null) return;
+
         var sections = GetPathSections(path.ToLower());
-        var currentSection = _currentSaveSlot.Content;
+        var currentSection = currentSaveSlot.Content;
 
         foreach (var section in sections[..^1])
         {
@@ -63,28 +69,30 @@ internal class GameStorage
         }
 
         currentSection[sections[^1]] = resource;
+
+        var jsonSerializerOptions = new JsonSerializerOptions
+        {
+            WriteIndented = true
+        };
     }
 
     public T? GetStored<T>(string path) where T : Resource
     {
         object? foundPath = FindPath(path);
+
+        if (foundPath is JsonElement jsonElement)
+        {
+            foundPath = JsonSerializer.Deserialize<T>(jsonElement);
+        }
+
         if (foundPath is not T validObj) return default;
 
         return validObj;
     }
 
-    public bool SelectSlot(int slot)
+    public void SelectSlot(int slot)
     {
-        SaveSlotResource? saveSlotResource = _gameStorageResource
-            .SaveSlotResources
-            .ElementAtOrDefault(slot);
-
-        if (saveSlotResource is null) return false;
-
-        _currentSaveSlot = saveSlotResource;
         _currentSaveSlotIndex = slot;
-
-        return true;
     }
 
     public List<SaveSlotResource> GetSaveSlots()
@@ -94,7 +102,7 @@ internal class GameStorage
 
     public void UdapteCurrentSlotInfo(Resource saveSlotInfo)
     {
-        _currentSaveSlot.Info = saveSlotInfo;
+        GetCurrentSaveSlot()?.Info = saveSlotInfo;
     }
 
     private void AddEmptySlots(int amount)
@@ -107,27 +115,48 @@ internal class GameStorage
         }
     }
 
-    private List<string> GetPathSections(string path)
+    private SaveSlotResource? GetCurrentSaveSlot()
     {
-        return ($"slot_{_currentSaveSlotIndex}.{path}" + path).Split('.', '/').ToList();
+        return _gameStorageResource
+            .SaveSlotResources
+            .ElementAtOrDefault(_currentSaveSlotIndex);
     }
 
-    private Dictionary<string, object>? FindPath(string path)
+    private List<string> GetPathSections(string path)
     {
+        return ($"slot_{_currentSaveSlotIndex}.{path}").Split('.', '/').ToList();
+    }
+
+    private object? FindPath(string path)
+    {
+        SaveSlotResource? saveSlotResource = GetCurrentSaveSlot();
+        if (saveSlotResource is null) return default;
+
         List<string> sections = GetPathSections(path.ToLower());
         if (sections.Count == 0) return default;
 
-        Dictionary<string, object> currentSection = _currentSaveSlot.Content;
-
-        foreach (var section in sections)
+        Dictionary<string, object> currentSection = saveSlotResource.Content;
+        
+        foreach (var section in sections[..^1])
         {
-            object? foundSection = currentSection.GetValueOrDefault(section);
-            if (foundSection is not Dictionary<string, object> validSection) return default;
+            if (!currentSection.TryGetValue(section, out object? foundSection)) return default;
 
-            currentSection = validSection;
+            if (foundSection is JsonElement jsonElement)
+            {
+                currentSection = jsonElement.Deserialize<Dictionary<string, object>>()!;
+                continue;
+            }
+
+            if (foundSection is Dictionary<string, object> validSection)
+            {
+                currentSection = validSection;
+                continue;
+            }
+
+            return default;
         }
 
-        return currentSection;
+        return currentSection.GetValueOrDefault(sections[^1]);
     }
 
     private static Dictionary<string, object> ForceGetSection(Dictionary<string, object> parent, string name)

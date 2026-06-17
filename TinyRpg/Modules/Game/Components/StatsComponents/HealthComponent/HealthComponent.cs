@@ -1,66 +1,75 @@
-﻿internal class HealthComponent : Component, IHealthComponent
+﻿internal class HealthComponent : Component, IHealthComponent, ISaveble
 {
     public event Action<int, int>? OnHealthChanged;
     public event Action<int>? OnAddHealth;
     public event Action<int>? OnSubHealth;
 
-    private int _maxHealth;
-
-    private int _health;
+    private HealthResource _healthResource = new();
 
     public HealthComponent() : this(100) { }
 
     public HealthComponent(int maxHealth = 100)
     {
-        _maxHealth = maxHealth;
-        _health = maxHealth;
+        _healthResource.MaxHealth = maxHealth;
+        _healthResource.Health = maxHealth;
     }
 
     public int GetHealth()
     {
-        return _health;
+        return _healthResource.Health;
     }
 
     public int GetMaxHealth()
     {
-        return _maxHealth;
+        return _healthResource.MaxHealth;
     }
 
     public float GetHealthPercentage()
     {
-        return (float)_health / (float)_maxHealth;
+        return (float)_healthResource.Health / (float)_healthResource.MaxHealth;
     }
 
     public void Add(int amount)
     {
-        int oldHealth = _health;
+        int oldHealth = _healthResource.Health;
 
-        _health += amount;
-        _health = Math.Min(_health, _maxHealth);
+        _healthResource.Health += amount;
+        _healthResource.Health = Math.Min(_healthResource.Health, _healthResource.MaxHealth);
 
-        if (oldHealth != _health)
+        if (oldHealth != _healthResource.Health)
         {
             OnAddHealth?.Invoke(amount);
-            OnHealthChanged?.Invoke(oldHealth, _health);
+            OnHealthChanged?.Invoke(oldHealth, _healthResource.Health);
         }
     }
 
     public void Sub(int amount)
     {
-        int oldHealth = _health;
+        int oldHealth = _healthResource.Health;
 
-        _health -= amount;
-        _health = Math.Max(_health, 0);
+        _healthResource.Health -= amount;
+        _healthResource.Health = Math.Max(_healthResource.Health, 0);
 
-        if (oldHealth != _health)
+        if (oldHealth != _healthResource.Health)
         {
             OnSubHealth?.Invoke(amount);
-            OnHealthChanged?.Invoke(oldHealth, _health);
+            OnHealthChanged?.Invoke(oldHealth, _healthResource.Health);
         }
     }
 
     public void AddMaxHealth(int amount)
     {
-        _maxHealth += amount;
+        _healthResource.MaxHealth += amount;
+    }
+
+    public void OnSave(GameStorage gameStorage)
+    {
+        gameStorage.Store("player.health", _healthResource);
+    }
+
+    public void OnLoad(GameStorage gameStorage)
+    {
+        var healthResource = gameStorage.GetStored<HealthResource>("player.health");
+        if (healthResource != null) _healthResource = healthResource;
     }
 }

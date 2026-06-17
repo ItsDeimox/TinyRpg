@@ -11,12 +11,16 @@
 
         savebles.ForEach(s => s.OnSave(_gameStorage));
 
+        _gameStorage.Save();
+
         OnSceneSave?.Invoke(scene);
     }
 
     public void LoadSceneComponents(Scene scene)
     {
         List<ISaveble> savebles = GetSceneSavebleComponents(scene);
+
+        _gameStorage.Load();
 
         savebles.ForEach(s => s.OnLoad(_gameStorage));
 

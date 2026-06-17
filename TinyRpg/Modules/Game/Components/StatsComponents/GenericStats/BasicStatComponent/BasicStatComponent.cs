@@ -8,7 +8,7 @@
 
     private int _value { get; set; }
 
-    public BasicStatComponent(string name = "Basic Stat", int initialValue = 0)
+    public BasicStatComponent(string name = "Basic Stats", int initialValue = 0)
     {
         Name = name;
         _value = initialValue;
@@ -24,13 +24,19 @@
         _value += amount;
 
         OnAddValue?.Invoke(amount);
-        OnValueChanged?.Invoke(amount);
+        OnValueChanged?.Invoke(_value);
     }
 
     public void SubValue(int amount)
     {
         _value -= amount;
         OnSubValue?.Invoke(amount);
-        OnValueChanged?.Invoke(amount);
+        OnValueChanged?.Invoke(_value);
+    }
+
+    public void SetValue(int value)
+    {
+        _value = value;
+        OnValueChanged?.Invoke(_value);
     }
 }

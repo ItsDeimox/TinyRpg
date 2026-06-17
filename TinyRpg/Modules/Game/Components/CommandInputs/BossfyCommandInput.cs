@@ -1,4 +1,4 @@
-﻿internal class BossfyCommandInput() : CommandInputComponent("bossfy", "Bossfy the character, making it stronger and more powerful.")
+﻿internal class BossfyCommandInput() : CommandInputComponent("bossfy", "Bossfy the character, making it stronger and more powerful")
 {
     public override void OnCommand(string[]? args = null)
     {

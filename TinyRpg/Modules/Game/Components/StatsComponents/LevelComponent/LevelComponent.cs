@@ -73,5 +73,7 @@
         if (levelResource is null) return;
 
         _levelResource = levelResource;
+
+        UpdateMaxXp();
     }
 }

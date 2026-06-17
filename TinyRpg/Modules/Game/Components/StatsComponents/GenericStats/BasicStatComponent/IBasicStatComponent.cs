@@ -11,4 +11,6 @@
     void AddValue(int amount);
 
     void SubValue(int amount);
+
+    void SetValue(int amount);
 }
