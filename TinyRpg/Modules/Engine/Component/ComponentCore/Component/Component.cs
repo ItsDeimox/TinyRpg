@@ -34,6 +34,16 @@
             : default;
     }
 
+    public T? GetComponentInParent<T>() where T : class, IComponent
+    {
+        return GameObject?.GetParent()?.GetComponent<T>();
+    }
+
+    public List<T>? GetComponentsInParent<T>() where T : IComponent
+    {
+        return GameObject?.GetParent()?.GetComponents<T>();
+    }
+
     public void RemoveComponent<T>()
     {
         GameObject?.RemoveComponent<T>();

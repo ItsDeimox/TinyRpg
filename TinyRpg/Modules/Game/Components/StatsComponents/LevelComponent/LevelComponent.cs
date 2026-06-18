@@ -1,10 +1,11 @@
-﻿internal class LevelComponent : Component, ILevelComponent, ISaveble
+﻿internal class LevelComponent : Component, ILevelComponent, IResourceProvider<LevelResource>, ISaveble
 {
     public event Action<int>? OnLevelUp;
     public event Action<int>? OnXpAdded;
 
-    private LevelResource _levelResource = new();
     private int _maxXp { get; set; }
+
+    public LevelResource Resource { get; set; } = new();
 
     public LevelComponent()
     {
@@ -13,7 +14,7 @@
 
     public void AddXp(int xp)
     {
-        _levelResource.Xp += xp;
+        Resource.Xp += xp;
 
         OnXpAdded?.Invoke(xp);
 
@@ -22,7 +23,7 @@
 
     public int GetLevel()
     {
-        return _levelResource.Level;
+        return Resource.Level;
     }
 
     public int GetMaxXp()
@@ -32,12 +33,12 @@
 
     public int GetXp()
     {
-        return _levelResource.Xp;
+        return Resource.Xp;
     }
 
     private void UpdateMaxXp()
     {
-        _maxXp = (int) Math.Pow(3, _levelResource.Level);
+        _maxXp = (int) Math.Pow(3, Resource.Level);
     }
 
     private void TryLevelUp()
@@ -49,22 +50,22 @@
 
     private bool CanLevelUp()
     {
-        return _levelResource.Xp >= _maxXp;
+        return Resource.Xp >= _maxXp;
     }
 
     private void LevelUp()
     {
-        _levelResource.Level += 1;
-        _levelResource.Xp -= _maxXp;
+        Resource.Level += 1;
+        Resource.Xp -= _maxXp;
 
         UpdateMaxXp();
 
-        OnLevelUp?.Invoke(_levelResource.Level);
+        OnLevelUp?.Invoke(Resource.Level);
     }
 
     public void OnSave(GameStorage gameStorage)
     {
-        gameStorage.Store("player.level", _levelResource);
+        gameStorage.Store("player.level", Resource);
     }
 
     public void OnLoad(GameStorage gameStorage)
@@ -72,7 +73,7 @@
         LevelResource? levelResource = gameStorage.GetStored<LevelResource>("player.level");
         if (levelResource is null) return;
 
-        _levelResource = levelResource;
+        Resource = levelResource;
 
         UpdateMaxXp();
     }

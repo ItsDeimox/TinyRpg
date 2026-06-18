@@ -1,4 +1,4 @@
-﻿internal class StatsTerminal
+﻿internal static class StatsTerminal
 {
     public static void ShowStatsHeader()
     {
@@ -40,6 +40,6 @@
         if (healthComponent != null) ShowHealthStat(healthComponent);
         if (levelComponent != null) ShowLevelStat(levelComponent);
         ShowCombatStats(character);
-        TerminalDecorator.ShowFooter(21);
+        TerminalDecorator.ShowFooter(22);
     }
 }

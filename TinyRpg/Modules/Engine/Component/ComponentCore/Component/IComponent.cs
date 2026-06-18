@@ -14,6 +14,10 @@
 
     List<T>? GetComponents<T>() where T : IComponent;
 
+    T? GetCompnentInParent<T>() where T : IComponent;
+
+    List<T>? GetComponentsInParent<T>() where T : IComponent;
+
     void RemoveComponent<T>();
 
     void SetGameObject(GameObject gameObject);
