@@ -1,8 +1,8 @@
-﻿internal interface IGameObject
+﻿internal interface INode
 {
     event Action<IComponent>? OnComponentAdded;
     event Action<IComponent>? OnComponentRemoved;
-    event Action<IGameObject>? OnGameObjectAdded;
+    event Action<INode>? OnNodeAdded;
 
     string Name { get; set; }
 
@@ -12,7 +12,7 @@
 
     void AddComponent(IComponent component);
 
-    void AddGameObject(IGameObject gameObject);
+    void AddNode(INode Node);
 
     T? GetComponent<T>();
 
@@ -22,17 +22,17 @@
 
     void RemoveComponent<T>();
 
-    IGameObject? GetChild(int index);
+    INode? GetChild(int index);
 
-    IGameObject? GetChildByName(string name);
+    INode? GetChildByName(string name);
 
-    IGameObject? GetParent();
+    INode? GetParent();
 
-    void SetParent(IGameObject parent);
+    void SetParent(INode parent);
 
-    List<IGameObject> GetChildren();
+    List<INode> GetChildren();
 
-    List<IGameObject> GetDescendants();
+    List<INode> GetDescendants();
 
     T? GetComponentInChildren<T>();
 

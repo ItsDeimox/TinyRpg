@@ -1,6 +1,6 @@
-﻿internal class RpgGameObject : GameObject
+﻿internal class RpgNode : Node
 {
-    public RpgGameObject() : base("RpgGame")
+    public RpgNode() : base("RpgGame")
     {
         AddComponent(new GameLoaderComponent());
         AddComponent(new RpgGameGreatingsComponent());

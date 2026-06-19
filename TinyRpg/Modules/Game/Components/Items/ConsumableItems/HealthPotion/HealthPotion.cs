@@ -7,7 +7,7 @@
         OnConsume += OnConsumeEvent;
     }
 
-    private void OnConsumeEvent(GameObject? user, int amount)
+    private void OnConsumeEvent(Node? user, int amount)
     {
         HealthComponent? healthComponent = user?.GetComponent<HealthComponent>();
 

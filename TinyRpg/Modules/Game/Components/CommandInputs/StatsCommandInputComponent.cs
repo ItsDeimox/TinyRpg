@@ -4,6 +4,6 @@
     {
         base.OnCommand(args);
 
-        if (GameObject != null) StatsTerminal.ShowCharacterStats(GameObject);
+        if (Node != null) StatsTerminal.ShowCharacterStats(Node);
     }
 }

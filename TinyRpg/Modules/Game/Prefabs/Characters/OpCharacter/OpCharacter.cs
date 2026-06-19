@@ -1,4 +1,4 @@
-﻿internal class OpCharacter : GameObject
+﻿internal class OpCharacter : Node
 {
     public OpCharacter()
     {

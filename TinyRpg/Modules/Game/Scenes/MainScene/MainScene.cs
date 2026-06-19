@@ -2,7 +2,7 @@
 {
     public MainScene()
     {
-        AddGameObject(new RpgGameObject());
-        AddGameObject(new InitCharacter());
+        AddNode(new RpgNode());
+        AddNode(new InitCharacter());
     }
 }

@@ -4,7 +4,8 @@
     public event Action<int>? OnAddHealth;
     public event Action<int>? OnSubHealth;
 
-    private HealthResource _healthResource = new();
+    [ResourceField]
+    private HealthResource _healthResource { get; set; } = new();
 
     public HealthComponent() : this(100) { }
 
@@ -62,14 +63,14 @@
         _healthResource.MaxHealth += amount;
     }
 
-    public void OnSave(GameStorage gameStorage)
+    public void OnSave(EngineStorage engineStorage)
     {
-        gameStorage.Store("player.health", _healthResource);
+        engineStorage.Store("player.health", _healthResource);
     }
 
-    public void OnLoad(GameStorage gameStorage)
+    public void OnLoad(EngineStorage engineStorage)
     {
-        var healthResource = gameStorage.GetStored<HealthResource>("player.health");
+        var healthResource = engineStorage.GetStored<HealthResource>("player.health");
         if (healthResource != null) _healthResource = healthResource;
     }
 }

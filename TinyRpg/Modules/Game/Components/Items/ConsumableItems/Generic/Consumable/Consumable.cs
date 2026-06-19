@@ -1,6 +1,6 @@
 ﻿internal class Consumable : Component, IConsumable
 {
-    public event Action<GameObject?, int>? OnConsume;
+    public event Action<Node?, int>? OnConsume;
     public event Action<int>? OnAddStack;
 
     public string Name { get; set; }
@@ -24,7 +24,7 @@
         return _maxStack;
     }
 
-    public virtual bool Consume(GameObject? user = null, int amount = 1)
+    public virtual bool Consume(Node? user = null, int amount = 1)
     {
         if (!CanConsume(amount)) return false;
 

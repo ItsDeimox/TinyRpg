@@ -21,7 +21,7 @@
         Console.WriteLine($"\n [ Health ] {healthStat.GetHealth()}/{healthStat.GetMaxHealth()}");
     }
 
-    public static void ShowCombatStats(GameObject character)
+    public static void ShowCombatStats(Node character)
     {
         DamageComponent? damageComponent = character.GetComponentInChildren<DamageComponent>();
         ArmorComponent? armorComponent = character.GetComponentInChildren<ArmorComponent>();
@@ -30,7 +30,7 @@
         if (armorComponent != null) Console.WriteLine($" [ Armor ] {armorComponent.GetValue()}");
     }
 
-    public static void ShowCharacterStats(GameObject character)
+    public static void ShowCharacterStats(Node character)
     {
         HealthComponent? healthComponent = character.GetComponentInChildren<HealthComponent>();
         LevelComponent? levelComponent = character.GetComponentInChildren<LevelComponent>();

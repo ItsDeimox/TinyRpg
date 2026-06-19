@@ -3,15 +3,15 @@
     public event Action<Scene>? OnSceneSave;
     public event Action<Scene>? OnSceneLoad;
 
-    private readonly GameStorage _gameStorage = new();
+    private readonly EngineStorage _engineStorage = new();
 
     public void SaveSceneComponents(Scene scene)
     {
         List<ISaveble> savebles = GetSceneSavebleComponents(scene);
 
-        savebles.ForEach(s => s.OnSave(_gameStorage));
+        savebles.ForEach(s => s.OnSave(_engineStorage));
 
-        _gameStorage.Save();
+        _engineStorage.Save();
 
         OnSceneSave?.Invoke(scene);
     }
@@ -20,9 +20,9 @@
     {
         List<ISaveble> savebles = GetSceneSavebleComponents(scene);
 
-        _gameStorage.Load();
+        _engineStorage.Load();
 
-        savebles.ForEach(s => s.OnLoad(_gameStorage));
+        savebles.ForEach(s => s.OnLoad(_engineStorage));
 
         OnSceneLoad?.Invoke(scene);
     }

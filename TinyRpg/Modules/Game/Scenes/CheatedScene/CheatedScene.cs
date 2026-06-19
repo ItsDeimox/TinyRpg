@@ -2,6 +2,6 @@
 {
     public CheatedScene()
     {
-        AddGameObject(new OpCharacter());
+        AddNode(new OpCharacter());
     }
 }

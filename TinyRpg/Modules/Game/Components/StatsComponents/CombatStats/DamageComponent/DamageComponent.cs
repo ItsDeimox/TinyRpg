@@ -8,9 +8,9 @@
         OnValueChanged += OnDamageChanged;
     }
 
-    public void OnLoad(GameStorage gameStorage)
+    public void OnLoad(EngineStorage engineStorage)
     {
-        var damageResource = gameStorage.GetStored<DamageResource>("player.damage");
+        var damageResource = engineStorage.GetStored<DamageResource>("player.damage");
         if (damageResource == null) return;
 
         _damageResource = damageResource;
@@ -18,9 +18,9 @@
         SetValue(_damageResource.Damage);
     }
 
-    public void OnSave(GameStorage gameStorage)
+    public void OnSave(EngineStorage engineStorage)
     {
-        gameStorage.Store("player.damage", _damageResource);
+        engineStorage.Store("player.damage", _damageResource);
     }
 
     private void OnDamageChanged(int newDamage)

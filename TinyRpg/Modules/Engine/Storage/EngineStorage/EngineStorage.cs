@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
 
-internal class GameStorage
+internal class EngineStorage
 {
-    private GameStorageResource _gameStorageResource = new();
+    private EngineStorageResource _gameStorageResource = new();
     private int _currentSaveSlotIndex = 0;
     private string _gameDataPath;
 
-    public GameStorage(string gameDataPath = "game_data.json", int saveSlots = 3)
+    public EngineStorage(string gameDataPath = "game_data.json", int saveSlots = 3)
     {
         _gameDataPath = gameDataPath;
         AddEmptySlots(saveSlots);
@@ -21,8 +21,8 @@ internal class GameStorage
             
             string json = File.ReadAllText(_gameDataPath);
             
-            GameStorageResource? gameStorageResource = JsonSerializer
-                .Deserialize<GameStorageResource>(json);
+            EngineStorageResource? gameStorageResource = JsonSerializer
+                .Deserialize<EngineStorageResource>(json);
 
             if (
                 gameStorageResource is null || 

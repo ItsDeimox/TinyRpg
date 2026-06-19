@@ -1,11 +1,12 @@
-﻿internal class LevelComponent : Component, ILevelComponent, IResourceProvider<LevelResource>, ISaveble
+﻿internal class LevelComponent : Component, ILevelComponent
 {
     public event Action<int>? OnLevelUp;
     public event Action<int>? OnXpAdded;
 
     private int _maxXp { get; set; }
 
-    public LevelResource Resource { get; set; } = new();
+    [ResourceField]
+    private LevelResource LevelResource { get; set; } = new();
 
     public LevelComponent()
     {
@@ -14,7 +15,7 @@
 
     public void AddXp(int xp)
     {
-        Resource.Xp += xp;
+        LevelResource.Xp += xp;
 
         OnXpAdded?.Invoke(xp);
 
@@ -23,7 +24,7 @@
 
     public int GetLevel()
     {
-        return Resource.Level;
+        return LevelResource.Level;
     }
 
     public int GetMaxXp()
@@ -33,12 +34,12 @@
 
     public int GetXp()
     {
-        return Resource.Xp;
+        return LevelResource.Xp;
     }
 
     private void UpdateMaxXp()
     {
-        _maxXp = (int) Math.Pow(3, Resource.Level);
+        _maxXp = (int) Math.Pow(3, LevelResource.Level);
     }
 
     private void TryLevelUp()
@@ -50,31 +51,31 @@
 
     private bool CanLevelUp()
     {
-        return Resource.Xp >= _maxXp;
+        return LevelResource.Xp >= _maxXp;
     }
 
     private void LevelUp()
     {
-        Resource.Level += 1;
-        Resource.Xp -= _maxXp;
+        LevelResource.Level += 1;
+        LevelResource.Xp -= _maxXp;
 
         UpdateMaxXp();
 
-        OnLevelUp?.Invoke(Resource.Level);
+        OnLevelUp?.Invoke(LevelResource.Level);
     }
 
-    public void OnSave(GameStorage gameStorage)
-    {
-        gameStorage.Store("player.level", Resource);
-    }
+    //public void OnSave(EngineStorage engineStorage)
+    //{
+    //    engineStorage.Store("player.level", Resource);
+    //}
 
-    public void OnLoad(GameStorage gameStorage)
-    {
-        LevelResource? levelResource = gameStorage.GetStored<LevelResource>("player.level");
-        if (levelResource is null) return;
+    //public void OnLoad(EngineStorage engineStorage)
+    //{
+    //    LevelResource? levelResource = engineStorage.GetStored<LevelResource>("player.level");
+    //    if (levelResource is null) return;
 
-        Resource = levelResource;
+    //    Resource = levelResource;
 
-        UpdateMaxXp();
-    }
+    //    UpdateMaxXp();
+    //} The autosave component has been created, but it is not yet in use.
 }

@@ -1,6 +1,6 @@
 ﻿internal abstract class Component : IComponent
 {
-    public GameObject? GameObject { get; private set; }
+    public Node? Node { get; private set; }
 
     protected Component() { }
 
@@ -10,47 +10,47 @@
 
     public void AddComponent(IComponent component)
     {
-        GameObject?.AddComponent(component);
+        Node?.AddComponent(component);
     }
 
     public T? GetComponent<T>() where T : IComponent
     {
-        return GameObject != null
-            ? GameObject.GetComponent<T>()
+        return Node != null
+            ? Node.GetComponent<T>()
             : default;
     }
 
     public T? GetComponentInChildren<T>() where T : IComponent
     {
-        return GameObject != null
-            ? GameObject.GetComponentInChildren<T>()
+        return Node != null
+            ? Node.GetComponentInChildren<T>()
             : default;
     }
 
     public List<T>? GetComponents<T>() where T : IComponent
     {
-        return GameObject != null
-            ? GameObject.GetComponents<T>()
+        return Node != null
+            ? Node.GetComponents<T>()
             : default;
     }
 
     public T? GetComponentInParent<T>() where T : class, IComponent
     {
-        return GameObject?.GetParent()?.GetComponent<T>();
+        return Node?.GetParent()?.GetComponent<T>();
     }
 
     public List<T>? GetComponentsInParent<T>() where T : IComponent
     {
-        return GameObject?.GetParent()?.GetComponents<T>();
+        return Node?.GetParent()?.GetComponents<T>();
     }
 
     public void RemoveComponent<T>()
     {
-        GameObject?.RemoveComponent<T>();
+        Node?.RemoveComponent<T>();
     }
 
-    public void SetGameObject(GameObject gameObject)
+    public void SetNode(Node node)
     {
-        GameObject = gameObject;
+        Node = node;
     }
 }

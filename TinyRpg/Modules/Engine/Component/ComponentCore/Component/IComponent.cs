@@ -1,6 +1,6 @@
 ﻿internal interface IComponent
 {
-    GameObject? GameObject { get; }
+    Node? Node { get; }
 
     void OnStart();
 
@@ -14,11 +14,11 @@
 
     List<T>? GetComponents<T>() where T : IComponent;
 
-    T? GetCompnentInParent<T>() where T : IComponent;
+    T? GetComponentInParent<T>() where T : class, IComponent;
 
     List<T>? GetComponentsInParent<T>() where T : IComponent;
 
     void RemoveComponent<T>();
 
-    void SetGameObject(GameObject gameObject);
+    void SetNode(Node Node);
 }

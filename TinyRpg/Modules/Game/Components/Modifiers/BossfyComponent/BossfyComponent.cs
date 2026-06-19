@@ -4,9 +4,9 @@
     {
         base.OnStart();
 
-        string? oldName = GameObject?.Name ?? "Unnamed";
+        string? oldName = Node?.Name ?? "Unnamed";
 
-        GameObject?.Name = GameObject.Name + " BOSS";
+        Node?.Name = Node.Name + " BOSS";
 
         LevelComponent? levelComponent = GetComponentInChildren<LevelComponent>();
         levelComponent?.AddXp(30000);

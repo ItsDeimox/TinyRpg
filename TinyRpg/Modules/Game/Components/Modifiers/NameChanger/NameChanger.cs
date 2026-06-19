@@ -4,9 +4,9 @@
 
     public void ChangeName(string newName)
     {
-        string oldName = GameObject?.Name ?? "Unnamed";
+        string oldName = Node?.Name ?? "Unnamed";
 
-        GameObject?.Name = newName;
+        Node?.Name = newName;
 
         NameChanged?.Invoke(newName, oldName);
     }

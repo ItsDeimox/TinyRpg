@@ -1,20 +1,20 @@
-﻿internal abstract class GameObject : IGameObject
+﻿internal abstract class Node : INode
 {
     public event Action<IComponent>? OnComponentAdded;
     public event Action<IComponent>? OnComponentRemoved;
-    public event Action<IGameObject>? OnGameObjectAdded;
+    public event Action<INode>? OnNodeAdded;
 
     public string Name { get; set; }
 
-    private IGameObject? _parent;
-    private List<IGameObject> _children = new();
+    private INode? _parent;
+    private List<INode> _children = new();
     private List<IComponent> _components = new();
 
     private Scene? _scene { get; set; } = new();
 
-    protected GameObject() : this("GameObject") { }
+    protected Node() : this("Node") { }
 
-    public GameObject(string name = "GameObject", IGameObject? parent = null)
+    public Node(string name = "Node", INode? parent = null)
     {
         Name = name;
         _parent = parent;
@@ -32,20 +32,20 @@
 
     public void AddComponent(IComponent component)
     {
-        component.SetGameObject(this);
+        component.SetNode(this);
 
         _components.Add(component);
 
         OnComponentAdded?.Invoke(component);
     }
 
-    public void AddGameObject(IGameObject gameObject)
+    public void AddNode(INode Node)
     {
-        _children.Add(gameObject);
+        _children.Add(Node);
 
-        gameObject.SetParent(this);
+        Node.SetParent(this);
 
-        OnGameObjectAdded?.Invoke(gameObject);
+        OnNodeAdded?.Invoke(Node);
     }
 
     public T? GetComponent<T>()
@@ -76,17 +76,17 @@
         return _components;
     }
 
-    public List<IGameObject> GetGameObject(string name)
+    public List<INode> GetNode(string name)
     {
         return _children.Where(c => c.Name == name).ToList();
     }
 
-    public List<IGameObject> GetChildren()
+    public List<INode> GetChildren()
     {
         return _children;
     }
 
-    public List<IGameObject> GetDescendants()
+    public List<INode> GetDescendants()
     {
         return _children
             .SelectMany(c => c.GetDescendants())
@@ -94,22 +94,22 @@
             .ToList();
     }
 
-    public IGameObject? GetChild(int index)
+    public INode? GetChild(int index)
     {
         return _children.ElementAtOrDefault(index);
     }
 
-    public IGameObject? GetChildByName(string name)
+    public INode? GetChildByName(string name)
     {
         return _children.FirstOrDefault(c => c.Name == name);
     }
 
-    public IGameObject? GetParent()
+    public INode? GetParent()
     {
         return _parent;
     }
 
-    public void SetParent(IGameObject parent)
+    public void SetParent(INode parent)
     {
         _parent = parent;
     }

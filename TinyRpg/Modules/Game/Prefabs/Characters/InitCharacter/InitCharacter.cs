@@ -1,4 +1,4 @@
-﻿internal class InitCharacter : GameObject
+﻿internal class InitCharacter : Node
 {
     public InitCharacter() : base("Player")
     {
@@ -16,6 +16,6 @@
         AddComponent(new StatsCommandInputComponent());
         AddComponent(new InventoryCommandInput());
 
-        AddGameObject(new StatsObject());
+        AddNode(new StatsObject());
     }
 }
