@@ -1,6 +1,6 @@
-﻿internal class InitCharacter : Node
+﻿internal class Player : Node
 {
-    public InitCharacter() : base("Player")
+    public Player() : base("Player")
     {
         //AddComponent(new NameChanger());
         //AddComponent(new NameChangerCommandInputComponent());

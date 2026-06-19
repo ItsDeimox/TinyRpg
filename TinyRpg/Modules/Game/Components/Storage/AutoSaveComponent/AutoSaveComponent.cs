@@ -1,15 +1,10 @@
 ﻿using System.Reflection;
 
-internal class AutoSaveComponent<TComponent, TResource> : Component, ISaveble
+internal class AutoSaveComponent<TComponent, TResource>(string path) : Component, ISaveble
     where TComponent : Component
     where TResource : Resource
 {
-    private readonly string _path;
-
-    public AutoSaveComponent(string path)
-    {
-        _path = path;
-    }
+    private readonly string _path = path;
 
     public void OnLoad(EngineStorage engineStorage)
     {
@@ -21,11 +16,11 @@ internal class AutoSaveComponent<TComponent, TResource> : Component, ISaveble
         if (resource is null)
             return;
 
-        FieldInfo? fieldInfo = GetComponentResourceField();
-        if (fieldInfo is null)
+        PropertyInfo? PropertyInfo = GetComponentResourceProperty();
+        if (PropertyInfo is null)
             return;
 
-        fieldInfo.SetValue(component, resource);
+        PropertyInfo.SetValue(component, resource);
     }
 
     public void OnSave(EngineStorage engineStorage)
@@ -43,44 +38,37 @@ internal class AutoSaveComponent<TComponent, TResource> : Component, ISaveble
         if (component is null)
             return null;
 
-        FieldInfo? fieldInfo = GetComponentResourceField();
-        if (fieldInfo?.GetValue(component) is not TResource resource)
+        PropertyInfo? propertyInfo = GetComponentResourceProperty();
+        if (propertyInfo?.GetValue(component) is not TResource resource)
             return null;
 
         return resource;
     }
 
-    private FieldInfo? GetComponentResourceField()
+    private PropertyInfo? GetComponentResourceProperty()
     {
-        FieldInfo[]? fieldInfos = GetComponentFields();
-        if (fieldInfos is null)
+        PropertyInfo[]? propertyInfos = GetComponentProperties();
+        if (propertyInfos is null)
             return null;
 
-        foreach (FieldInfo field in fieldInfos)
+        foreach (PropertyInfo property in propertyInfos)
         {
-            if (field.GetCustomAttribute<ResourceFieldAttribute>() is null)
+            bool hasAttribute = property.IsDefined(typeof(ResourceFieldAttribute), true);
+
+            if (!hasAttribute)
                 continue;
 
-            if (!typeof(TResource).IsAssignableFrom(field.FieldType))
-                continue;
-
-            return field;
+            return property;
         }
         
         return null;
     }
 
-    private FieldInfo[]? GetComponentFields()
+    private PropertyInfo[]? GetComponentProperties()
     {
         Component? component = GetComponent<TComponent>();
-        if (component is null)
-            return null;
 
-        Type? type = component?.GetType();
-        if (type is null)
-            return null;
-
-        return type.GetFields(
+        return component?.GetType().GetProperties(
             BindingFlags.Instance |
             BindingFlags.Public |
             BindingFlags.NonPublic

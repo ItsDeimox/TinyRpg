@@ -9,5 +9,6 @@
 
         AddComponent(new AutoSaveComponent<LevelComponent, LevelResource>("player.level"));
         AddComponent(new AutoSaveComponent<HealthComponent, HealthResource>("player.health"));
+        AddComponent(new AutoSaveComponent<DamageComponent, DamageResource>("player.damage"));
     }
 }

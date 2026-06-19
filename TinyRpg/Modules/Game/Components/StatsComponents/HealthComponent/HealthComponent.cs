@@ -1,4 +1,4 @@
-﻿internal class HealthComponent : Component, IHealthComponent, ISaveble
+﻿internal class HealthComponent : Component, IHealthComponent
 {
     public event Action<int, int>? OnHealthChanged;
     public event Action<int>? OnAddHealth;
@@ -6,8 +6,6 @@
 
     [ResourceField]
     private HealthResource _healthResource { get; set; } = new();
-
-    public HealthComponent() : this(100) { }
 
     public HealthComponent(int maxHealth = 100)
     {
@@ -27,7 +25,7 @@
 
     public float GetHealthPercentage()
     {
-        return (float)_healthResource.Health / (float)_healthResource.MaxHealth;
+        return (float)_healthResource.Health / _healthResource.MaxHealth;
     }
 
     public void Add(int amount)
@@ -61,16 +59,5 @@
     public void AddMaxHealth(int amount)
     {
         _healthResource.MaxHealth += amount;
-    }
-
-    public void OnSave(EngineStorage engineStorage)
-    {
-        engineStorage.Store("player.health", _healthResource);
-    }
-
-    public void OnLoad(EngineStorage engineStorage)
-    {
-        var healthResource = engineStorage.GetStored<HealthResource>("player.health");
-        if (healthResource != null) _healthResource = healthResource;
     }
 }

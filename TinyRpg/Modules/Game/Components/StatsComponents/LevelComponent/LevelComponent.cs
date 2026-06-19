@@ -63,19 +63,4 @@
 
         OnLevelUp?.Invoke(LevelResource.Level);
     }
-
-    //public void OnSave(EngineStorage engineStorage)
-    //{
-    //    engineStorage.Store("player.level", Resource);
-    //}
-
-    //public void OnLoad(EngineStorage engineStorage)
-    //{
-    //    LevelResource? levelResource = engineStorage.GetStored<LevelResource>("player.level");
-    //    if (levelResource is null) return;
-
-    //    Resource = levelResource;
-
-    //    UpdateMaxXp();
-    //} The autosave component has been created, but it is not yet in use.
 }

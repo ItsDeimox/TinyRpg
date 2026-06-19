@@ -3,6 +3,6 @@
     public MainScene()
     {
         AddNode(new RpgNode());
-        AddNode(new InitCharacter());
+        AddNode(new Player());
     }
 }
