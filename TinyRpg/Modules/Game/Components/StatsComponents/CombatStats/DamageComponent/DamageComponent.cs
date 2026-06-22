@@ -1,11 +1,17 @@
 ﻿internal class DamageComponent : BasicStatComponent
 {
+    private DamageResource _damageResource = new();
+
     [ResourceField]
-    private DamageResource _damageResource { get; set; } = new();
+    private DamageResource DamageResource
+    {
+        get => _damageResource;
+        set => SetValue(value.Damage);
+    }
 
     public DamageComponent(int initialValue = 0) : base("Damage Stats", initialValue)
     {
-        _damageResource.Damage = initialValue;
+        SetValue(initialValue);
     }
 
     public override void OnStart()
@@ -13,7 +19,6 @@
         base.OnStart();
 
         OnValueChanged += OnDamageChanged;
-        SetValue(_damageResource.Damage);
     }
 
     private void OnDamageChanged(int newDamage)
